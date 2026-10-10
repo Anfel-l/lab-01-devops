@@ -15,7 +15,7 @@ on:
 env:
   AWS_REGION: ${{ vars.AWS_REGION || 'us-east-1' }}
   STUDENT_SUFFIX: ${{ inputs.student_suffix || vars.STUDENT_SUFFIX || 'alugor' }}
-  ECR_REPOSITORY: greeting-${{ inputs.student_suffix || vars.STUDENT_SUFFIX || 'test-student' }}
+  ECR_REPOSITORY: greeting-${{ inputs.student_suffix || vars.STUDENT_SUFFIX || 'alugor' }}
 jobs:
   lint:
     name: Lint (Pylint)

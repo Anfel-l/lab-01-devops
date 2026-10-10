@@ -2,8 +2,7 @@
 name = "greeting-app"
 version = "0.2.0"
 description = "A FastAPI application that accepts a first name and last name, and returns a personalized greeting."
-authors = ["Luis Carlos Rodriguez <luis.carlos.rb97@gmail.com>"]
-readme = "README.md"
+authors = ["Andrés Felipe Lugo <alugor@gmail.com>"]
 license = "UNAL"
 packages = [
     { include = "main.py", from = "src"}

@@ -1,0 +1,29 @@
+name: Destroy Infrastructure (Lab 1)
+on:
+  workflow_dispatch:
+    inputs:
+      student_suffix:
+        description: 'Student Suffix (e.g. test-student)'
+        required: false
+        type: string
+      confirm:
+        description: 'Type "destroy" to confirm deletion of all resources'
+        required: true
+        type: string
+env:
+  AWS_REGION: ${{ vars.AWS_REGION || 'us-east-1' }}
+  STUDENT_SUFFIX: ${{ inputs.student_suffix || vars.STUDENT_SUFFIX || 'alugor' }}
+jobs:
+  destroy:
+    name: Destroy ECS on EC2 Infrastructure
+    runs-on: ubuntu-latest
+    if: inputs.confirm == 'destroy'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Run Destroy Script
+        run: bash scripts/destroy.sh "${{ env.STUDENT_SUFFIX }}"

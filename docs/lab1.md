@@ -6,11 +6,11 @@
 
 <!-- Aplicación FastAPI (src/main.py) empaquetada con Dockerfile -> imagen en ECR -> ECS (EC2 launch type) -->
 
-- **Aplicación y Dockerfile:** qué expone, puerto 8000, endpoints `/` y `/health`
-- **Amazon ECR:** registro de imágenes, tags `latest` y `github.sha`
-- **Amazon ECS sobre EC2:** cluster, task definition, service, capacity provider
-- **Auto Scaling Group + Launch Template:** 1 instancia t3.micro con AMI optimizada para ECS
-- **Red y seguridad:** security group con puerto 8000 abierto, IAM roles de instancia y de ejecución de tareas
+- **Aplicación y Dockerfile:** _(qué expone, puerto 8000, endpoints `/` y `/health`)_
+- **Amazon ECR:** _(registro de imágenes, tags `latest` y `github.sha`)_
+- **Amazon ECS sobre EC2:** _(cluster, task definition, service, capacity provider)_
+- **Auto Scaling Group + Launch Template:** _(1 instancia t3.micro con AMI optimizada para ECS)_
+- **Red y seguridad:** _(security group con puerto 8000 abierto, IAM roles de instancia y de ejecución de tareas)_
 
 ```mermaid
 flowchart LR
@@ -54,11 +54,11 @@ flowchart LR
 
 ### 1.2 Conceptos de CI/CD aplicados
 
-- **Integración continua (CI):** lint con Pylint, pruebas con Pytest en cada PR
-- **Entrega/Despliegue continuo (CD):** build, push a ECR y despliegue a ECS en push a `main`
-- **Disparadores:** `pull_request`, `push` a `main`, `workflow_dispatch`
-- **Secrets y variables:** credenciales AWS, `STUDENT_SUFFIX`, `AWS_REGION`
-- **Idempotencia de los scripts:** `deploy.sh` / `destroy.sh`
+- **Integración continua (CI):** _(lint con Pylint, pruebas con Pytest en cada PR)_
+- **Entrega/Despliegue continuo (CD):** _(build, push a ECR y despliegue a ECS en push a `main`)_
+- **Disparadores:** _(`pull_request`, `push` a `main`, `workflow_dispatch`)_
+- **Secrets y variables:** _(credenciales AWS, `STUDENT_SUFFIX`, `AWS_REGION`)_
+- **Idempotencia de los scripts:** _(`deploy.sh` / `destroy.sh`)_
 
 ## 2. Evidencia de ejecución del pipeline
 
@@ -91,19 +91,18 @@ flowchart LR
 ![GET /health en Postman](img/postman-health.png)
 
 ```bash
-curl http://<IP_PUBLICA>:8000/health
+curl http://32.196.141.123:8000/health
 # {"status": "healthy"}
 ```
 
 ## 4. Propuestas para mejorar el pipeline
 
 - **Autenticación sin llaves de larga duración:** usar OIDC de GitHub con un rol IAM en lugar de `AWS_ACCESS_KEY_ID`/`SECRET`.
-- **Actualizar acciones a versiones con Node 24** (aviso de deprecación de Node 20 en las anotaciones).
 - **Cache de dependencias** de Poetry y de capas Docker (`cache-from`/`cache-to`) para acelerar el pipeline.
 - **Esperar estabilidad del despliegue:** `aws ecs wait services-stable` y smoke test a `/health` al final del deploy.
 - **Rollback automático** con deployment circuit breaker de ECS.
 - **Ambientes y aprobaciones:** GitHub Environments con revisores para deploy y destroy.
-- **Permisos IAM mínimos** (p. ej. añadir `ecs:ListServiceDeployments`, que la consola reporta como faltante).
+- **Permisos IAM mínimos** 
 - **Infraestructura como código** (Terraform/CloudFormation) en lugar de scripts bash.
 - **Escaneo de seguridad** de la imagen (ECR scanning / Trivy) y de dependencias.
 - **Restringir el security group** y poner un Load Balancer / dominio en lugar de IP pública directa.

@@ -1,4 +1,4 @@
-"""Module providing a personalized greeting Lambda function."""
+"""Module providing a personalized greeting Lambda function. """
 
 
 def lambda_handler(request, context):  # pylint: disable=unused-argument
@@ -20,7 +20,7 @@ def lambda_handler(request, context):  # pylint: disable=unused-argument
     else:
         # If not provided, return a generic message
         greeting_message = (
-            "Hello, World! Please provide your first name and last name "
+            "Hello, World World! Please provide your first name and last name "
             "as query parameters."
         )
 

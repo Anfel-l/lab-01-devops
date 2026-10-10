@@ -82,18 +82,24 @@ flowchart LR
 
   ![Ejecución de destroy](img/pipeline-destroy.png)
 
-- Verificación de que los recursos ya no existen (ECS, EC2, ECR):
-
-  ![Recursos eliminados](img/destroy-verificacion.png)
 
 ## 3. Evidencia de la petición HTTP a la IP pública
 
-![GET /health en Postman](img/postman-health.png)
-
 ```bash
 curl http://32.196.141.123:8000/health
-# {"status": "healthy"}
 ```
+
+![GET /health en Postman](img/postman-health.png)
+
+
+
+```bash
+curl 'http://32.196.141.123:8000/?first_name=Felipe&last_name=Lugo'
+```
+
+![GET / (Greeter) en Postman](img/postman-greeter.png)
+
+
 
 ## 4. Propuestas para mejorar el pipeline
 
